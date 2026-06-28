@@ -1,0 +1,27 @@
+services:
+  web:
+    build: ./backend          # ← était "."
+    container_name: budgy-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app        # ← était ".:/app"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=budgy
+      - POSTGRES_USER=budgy
+      - POSTGRES_PASSWORD=budgy
+
+  db:
+    image: postgres:15
+    container_name: budgy-db
+    environment:
+      POSTGRES_DB: budgy
+      POSTGRES_USER: budgy
+      POSTGRES_PASSWORD: budgy
+    volumes:
+      - budgy_data:/var/lib/postgresql/data
+
+volumes:
+  budgy_data:

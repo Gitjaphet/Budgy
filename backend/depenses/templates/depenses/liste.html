@@ -1,0 +1,98 @@
+<!-- djlint:off -->
+
+{% extends 'depenses/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- STATS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-label">Total ce mois</span>
+        <span class="stat-value danger">{{ total }} Ar</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Dépenses</span>
+        <span class="stat-value">{{ donnee|length }}</span>
+    </div>
+</div>
+
+<!-- BOUTON AJOUTER -->
+<div class="header-actions">
+    <h2>Liste des dépenses</h2>
+    <button class="btn-add" onclick="openModal('modal-add')">+ Ajouter</button>
+</div>
+
+<!-- TABLEAU -->
+<div class="table-wrap">
+    {% for depense in donnee %}
+    <div class="table-row">
+        <span>{{ depense.titre }}</span>
+        <span>{{ depense.montant }} Ar</span>
+        <span class="badge {{ depense.categorie }}">{{ depense.get_categorie_display }}</span>
+        <span class="date">{{ depense.date }}</span>
+        <div class="actions">
+            <button class="btn-icon" onclick="openModal('modal-edit'); loadEditForm({{ depense.id }})">✏️</button>
+            <button class="btn-icon danger" onclick="openDeleteModal({{ depense.id }}, '{{ depense.titre }}')">🗑️</button>
+        </div>
+    </div>
+    {% empty %}
+    <p class="empty">Aucune dépense pour le moment.</p>
+    {% endfor %}
+</div>
+
+<!-- POPUP AJOUTER -->
+<div class="modal-overlay" id="modal-add">
+    <div class="modal">
+        <h3>Ajouter une dépense</h3>
+        <form method="POST" action="/depenses/">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-add')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- POPUP MODIFIER -->
+<div class="modal-overlay" id="modal-edit">
+    <div class="modal">
+        <h3>Modifier une dépense</h3>
+        <form method="POST" id="form-edit">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="edit" value="1">
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-edit')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- POPUP SUPPRIMER -->
+<div class="modal-overlay" id="modal-delete">
+    <div class="modal modal-delete">
+        <p>⚠️ Supprimer <strong id="delete-titre"></strong> ? Cette action est irréversible.</p>
+        <form method="POST" id="form-delete">
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="1">
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-delete')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-delete">Supprimer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if id %}
+<script>
+    window.addEventListener('load', function() {
+        openModal('modal-edit');
+    });
+</script>
+{% endif %}
+
+{% endblock %}
