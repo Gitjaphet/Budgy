@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tenants',
+    'core',
     'depenses',
 ]
 
@@ -76,6 +77,7 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tenants',
+    'core',
 ]
 
 TENANT_APPS = [

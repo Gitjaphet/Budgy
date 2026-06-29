@@ -1,0 +1,47 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django_tenants.utils import schema_context
+from .models import Tenant, Domain
+from .forms import InscriptionForm
+
+
+def inscription(request):
+    form = InscriptionForm()
+
+    if request.method == 'POST':
+        form = InscriptionForm(request.POST)
+        if form.is_valid():
+            nom = form.cleaned_data['nom_organisation']
+            email = form.cleaned_data['email']
+            telephone = form.cleaned_data['telephone']
+            mot_de_passe = form.cleaned_data['mot_de_passe']
+
+            # Vérifier que le sous-domaine n'existe pas déjà
+            domaine_complet = f"{nom}.budgy.artjatie.com"
+            if Domain.objects.filter(domain=domaine_complet).exists():
+                form.add_error('nom_organisation', "Ce nom d'organisation est déjà pris.")
+                return render(request, 'tenants/inscription.html', {'form': form})
+
+            # Créer le tenant → crée automatiquement le schema PostgreSQL
+            tenant = Tenant(schema_name=nom, nom=nom)
+            tenant.save()
+
+            # Créer le domaine
+            domain = Domain(domain=domaine_complet, tenant=tenant, is_primary=True)
+            domain.save()
+
+            # Créer l'utilisateur admin dans le schema du tenant
+            with schema_context(nom):
+                user = User.objects.create_user(
+                    username=email,
+                    email=email,
+                    password=mot_de_passe,
+                    first_name=nom,
+                )
+                user.save()
+
+            # Rediriger vers le sous-domaine du tenant
+            return redirect(f"https://{domaine_complet}/")
+
+    return render(request, 'tenants/inscription.html', {'form': form})

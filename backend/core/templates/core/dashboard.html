@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgy — Dashboard</title>
+    <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <span class="navbar-brand">💰 Budgy</span>
+        <span class="navbar-org">{{ request.tenant.nom }}</span>
+    </nav>
+
+    <main class="container">
+        <h1 class="welcome">Bonjour 👋</h1>
+        <p class="subtitle">Choisissez un module pour commencer</p>
+
+        <div class="modules-grid">
+
+            <a href="/depenses/" class="module-card">
+                <div class="module-icon">💸</div>
+                <div class="module-name">Dépenses</div>
+                <div class="module-desc">Suivez et gérez vos dépenses</div>
+            </a>
+
+            <div class="module-card disabled">
+                <div class="module-icon">📊</div>
+                <div class="module-name">Budget</div>
+                <div class="module-desc">Bientôt disponible</div>
+                <span class="badge">Prochainement</span>
+            </div>
+
+            <div class="module-card disabled">
+                <div class="module-icon">📅</div>
+                <div class="module-name">Planning</div>
+                <div class="module-desc">Bientôt disponible</div>
+                <span class="badge">Prochainement</span>
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>
