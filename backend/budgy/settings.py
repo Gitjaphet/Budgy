@@ -20,6 +20,11 @@ INSTALLED_APPS = [
     'depenses',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://budgy.artjatie.com',
+    'https://*.budgy.artjatie.com',
+]
+
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',
