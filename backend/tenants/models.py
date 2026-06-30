@@ -3,6 +3,7 @@ from django_tenants.models import TenantMixin, DomainMixin
 
 class Tenant(TenantMixin):
     nom = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, null=True, blank=True)
     created_on = models.DateField(auto_now_add=True)
     auto_create_schema = True
 

@@ -24,7 +24,7 @@ def inscription(request):
                 return render(request, 'tenants/inscription.html', {'form': form})
 
             # Créer le tenant → crée automatiquement le schema PostgreSQL
-            tenant = Tenant(schema_name=nom, nom=nom)
+            tenant = Tenant(schema_name=nom, nom=nom, email=email)
             tenant.save()
 
             # Créer le domaine
