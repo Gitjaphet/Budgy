@@ -6,6 +6,9 @@ from .forms import LoginForm
 
 
 def login_view(request):
+    if request.tenant.schema_name == 'public':
+        return redirect('login_public')
+
     if request.user.is_authenticated:
         return redirect('dashboard')
 
