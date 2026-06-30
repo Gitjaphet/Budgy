@@ -7,6 +7,10 @@ from .forms import InscriptionForm
 
 
 def inscription(request):
+
+    if request.tenant.schema_name != 'public':
+        return redirect('dashboard')
+
     form = InscriptionForm()
 
     if request.method == 'POST':
