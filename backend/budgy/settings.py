@@ -25,6 +25,12 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.budgy.artjatie.com',
 ]
 
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
+
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
     'django.middleware.security.SecurityMiddleware',

@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum
+from django.contrib.auth.decorators import login_required
 from .forms import DepenseForm
 from .models import Depense
 from django.http import JsonResponse
 
+
+@login_required(login_url='login')
 def liste_depenses(request, id=None):
     if request.method == "GET":
         if id:
@@ -42,8 +45,9 @@ def liste_depenses(request, id=None):
             if form.is_valid():
                 form.save()
                 return redirect('liste_depenses')
-            
 
+
+@login_required(login_url='login')
 def get_depense(request, id):
     depense = Depense.objects.get(id=id)
     return JsonResponse({

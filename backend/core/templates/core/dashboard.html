@@ -10,7 +10,10 @@
 <body>
     <nav class="navbar">
         <span class="navbar-brand">💰 Budgy</span>
-        <span class="navbar-org">{{ request.tenant.nom }}</span>
+        <div style="display:flex; align-items:center; gap:16px;">
+            <span class="navbar-org">{{ request.tenant.nom }}</span>
+            <a href="{% url 'logout' %}" style="color:#888; text-decoration:none; font-size:0.85rem;">Déconnexion</a>
+        </div>
     </nav>
 
     <main class="container">
