@@ -53,3 +53,14 @@ class InscriptionForm(forms.Form):
         if mdp and mdp_confirm and mdp != mdp_confirm:
             raise forms.ValidationError("Les mots de passe ne correspondent pas.")
         return cleaned_data
+    
+
+class FindTenantForm(forms.Form):
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'votre@email.com',
+            'class': 'form-control',
+            'autofocus': True
+        })
+    )
