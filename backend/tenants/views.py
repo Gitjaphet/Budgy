@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django_tenants.utils import schema_context
 from .models import Tenant, Domain
-from .forms import InscriptionForm
+from .forms import InscriptionForm, FindTenantForm
 
 
 def inscription(request):
@@ -49,3 +49,24 @@ def inscription(request):
             return redirect(f"https://{domaine_complet}/")
 
     return render(request, 'tenants/inscription.html', {'form': form})
+
+
+def login_public(request):
+    if request.tenant.schema_name != 'public':
+        return redirect('dashboard')
+
+    form = FindTenantForm()
+
+    if request.method == 'POST':
+        form = FindTenantForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+
+            try:
+                tenant = Tenant.objects.get(email=email)
+                domain = tenant.domains.filter(is_primary=True).first()
+                return redirect(f"https://{domain.domain}/login/")
+            except Tenant.DoesNotExist:
+                form.add_error('email', "Aucun espace trouvé avec cet email.")
+
+    return render(request, 'tenants/login_public.html', {'form': form})

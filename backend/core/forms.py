@@ -16,3 +16,13 @@ class LoginForm(forms.Form):
             'class': 'form-control'
         })
     )
+
+class FindTenantForm(forms.Form):
+    email = forms.EmailField(
+        label="Email",
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'votre@email.com',
+            'class': 'form-control',
+            'autofocus': True
+        })
+    )
