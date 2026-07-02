@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgy — {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/tenant_base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <div class="sidebar-brand">💰 Budgy</div>
+
+            <nav class="sidebar-nav">
+                <a href="/" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
+                    <span class="nav-icon">📋</span> Résumé
+                </a>
+                <a href="/depenses/" class="nav-item {% if active_page == 'depenses' %}active{% endif %}">
+                    <span class="nav-icon">📄</span> Dépenses
+                </a>
+                <a href="#" class="nav-item disabled">
+                    <span class="nav-icon">📊</span> Budget
+                </a>
+                <a href="#" class="nav-item disabled">
+                    <span class="nav-icon">🔄</span> Récurrentes
+                </a>
+                <a href="#" class="nav-item disabled">
+                    <span class="nav-icon">📅</span> Planning
+                </a>
+                <a href="#" class="nav-item disabled">
+                    <span class="nav-icon">👥</span> Équipe
+                </a>
+            </nav>
+        </aside>
+
+        <div class="main-area">
+            <header class="topbar">
+                <span class="topbar-org">{{ request.tenant.nom }}</span>
+                <a href="{% url 'logout' %}" class="topbar-logout">Déconnexion</a>
+            </header>
+
+            <main class="content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+
+    </div>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

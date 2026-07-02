@@ -26,6 +26,7 @@ def liste_depenses(request, id=None):
             'edit_form': edit_form,
             'total': total,
             'id': id,
+            'active_page': 'depenses', 
         })
 
     elif request.method == "POST":

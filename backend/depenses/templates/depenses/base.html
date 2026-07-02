@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budgy</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'depenses/css/style.css' %}">
-</head>
-<body>
+{% extends 'core/tenant_base.html' %}
+{% load static %}
 
-    <nav class="navbar">
-        <span class="navbar-brand">💰 Budgy</span>
-    </nav>
+{% block title %}Dépenses{% endblock %}
 
-    <main class="container">
-        {% block content %}{% endblock %}
-    </main>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'depenses/css/style.css' %}">
+{% endblock %}
 
-    <script src="{% static 'depenses/js/modal.js' %}"></script>
-</body>
-</html>
+{% block content %}
+{% block depenses_content %}{% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'depenses/js/modal.js' %}"></script>
+{% endblock %}
