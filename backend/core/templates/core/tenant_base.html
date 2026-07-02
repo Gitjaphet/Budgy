@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budgy — {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="{% static 'core/css/tenant_base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -29,34 +31,38 @@
 
             <nav class="sidebar-nav">
                 <a href="/" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
-                    <i class='bx bx-home-alt nav-icon'></i>
+                    <i class='ph ph-house nav-icon'></i> 
                     <span class="nav-label">Résumé</span>
                 </a>
                 <a href="/depenses/" class="nav-item {% if active_page == 'depenses' %}active{% endif %}">
-                    <i class='bx bx-receipt nav-icon'></i>
+                    <i class='ph ph-receipt nav-icon'></i> 
                     <span class="nav-label">Dépenses</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <i class='bx bx-bar-chart-alt-2 nav-icon'></i>
+                    <i class='ph ph-chart-bar nav-icon'></i>
                     <span class="nav-label">Budget</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <i class='bx bx-refresh nav-icon'></i>
+                    <i class='ph ph-arrows-clockwise nav-icon'></i>
                     <span class="nav-label">Récurrentes</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <i class='bx bx-calendar nav-icon'></i>
+                    <i class='ph ph-calendar-blank nav-icon'></i>
                     <span class="nav-label">Planning</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <i class='bx bx-group nav-icon'></i>
+                    <i class='ph ph-users-three nav-icon'></i>
                     <span class="nav-label">Équipe</span>
                 </a>
             </nav>
 
             <div class="sidebar-footer">
+                <a href="{% url 'dashboard' %}" class="nav-item">
+                    <i class='ph ph-squares-four nav-icon'></i>
+                    <span class="nav-label">Retour aux apps</span>
+                </a>
                 <a href="{% url 'logout' %}" class="nav-item">
-                    <i class='bx bx-log-out nav-icon'></i>
+                    <i class='ph ph-sign-out nav-icon'></i>
                     <span class="nav-label">Déconnexion</span>
                 </a>
             </div>
