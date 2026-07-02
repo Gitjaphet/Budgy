@@ -134,12 +134,12 @@ body {
 
 .table-row {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr auto;
-    gap: 12px;
-    padding: 14px 20px;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 90px;
+    gap: 16px;
+    padding: 20px 28px;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
     align-items: center;
-    font-size: 14px;
+    font-size: 20px;
     transition: background 0.15s ease;
 }
 
@@ -153,24 +153,22 @@ body {
 
 .date {
     color: #999;
-    font-size: 13px;
+    font-size: 18px;
 }
 
 /* BADGES */
 .badge {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 500;
+    padding: 5px 14px;
+    font-weight: 600;
+    border: 1px solid transparent;
 }
 
-.badge.alimentation { background: rgba(52, 199, 89, 0.15); color: #1a7a35; }
-.badge.transport    { background: rgba(0, 122, 255, 0.15); color: #0055cc; }
-.badge.logement     { background: rgba(175, 82, 222, 0.15); color: #7a1fa2; }
-.badge.loisirs      { background: rgba(255, 149, 0, 0.15); color: #b35c00; }
-.badge.sante        { background: rgba(255, 59, 48, 0.15); color: #cc1a10; }
-.badge.autre        { background: rgba(142, 142, 147, 0.15); color: #555; }
+.badge.alimentation { border-color: rgba(52, 199, 89, 0.4); }
+.badge.transport    { border-color: rgba(0, 122, 255, 0.4); }
+.badge.logement     { border-color: rgba(175, 82, 222, 0.4); }
+.badge.loisirs      { border-color: rgba(255, 149, 0, 0.4); }
+.badge.sante        { border-color: rgba(255, 59, 48, 0.4); }
+.badge.autre        { border-color: rgba(142, 142, 147, 0.4); }
 
 /* ACTIONS */
 .actions {
@@ -475,10 +473,10 @@ body {
 /* ==================== */
 .table-header {
     display: grid;
-    grid-template-columns: 2.5fr 1fr 1fr 1fr auto;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr 90px;
     gap: 12px;
-    padding: 10px 20px;
-    font-size: 11px;
+    padding: 15px 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #999;
     text-transform: uppercase;
@@ -489,9 +487,7 @@ body {
 /* ==================== */
 /* LIGNE DE DEPENSE AVEC ICONE */
 /* ==================== */
-.table-row {
-    grid-template-columns: 2.5fr 1fr 1fr 1fr auto;
-}
+
 
 .depense-info {
     display: flex;
@@ -520,6 +516,6 @@ body {
 
 .depense-titre {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
     color: #1a1a1a;
 }
