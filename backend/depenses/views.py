@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from datetime import timedelta
 from .forms import DepenseForm
 from .models import Depense
 from django.http import JsonResponse
@@ -12,13 +14,52 @@ def liste_depenses(request, id=None):
         if id:
             depense = Depense.objects.get(id=id)
             edit_form = DepenseForm(instance=depense)
-            form = DepenseForm()  
+            form = DepenseForm()
         else:
             form = DepenseForm()
             edit_form = None
 
+        # --- Base queryset ---
         depenses = Depense.objects.all()
+
+        # --- Recherche par titre ---
+        recherche = request.GET.get('q', '').strip()
+        if recherche:
+            depenses = depenses.filter(titre__icontains=recherche)
+
+        # --- Filtre catégorie ---
+        categorie = request.GET.get('categorie', '')
+        if categorie:
+            depenses = depenses.filter(categorie=categorie)
+
+        # --- Filtre période ---
+        periode = request.GET.get('periode', 'ce_mois')
+        aujourdhui = timezone.now().date()
+
+        if periode == 'ce_mois':
+            depenses = depenses.filter(date__year=aujourdhui.year, date__month=aujourdhui.month)
+        elif periode == 'mois_dernier':
+            mois_dernier = (aujourdhui.replace(day=1) - timedelta(days=1))
+            depenses = depenses.filter(date__year=mois_dernier.year, date__month=mois_dernier.month)
+        elif periode == 'tout':
+            pass  # pas de filtre
+
+        depenses = depenses.order_by('-date')
+
+        # --- Stats ---
         total = depenses.aggregate(Sum('montant'))['montant__sum'] or 0
+
+        # Comparaison vs mois dernier (seulement pertinent si on regarde "ce_mois")
+        mois_dernier_date = (aujourdhui.replace(day=1) - timedelta(days=1))
+        total_mois_dernier = Depense.objects.filter(
+            date__year=mois_dernier_date.year,
+            date__month=mois_dernier_date.month
+        ).aggregate(Sum('montant'))['montant__sum'] or 0
+
+        if total_mois_dernier > 0:
+            variation = round(((total - total_mois_dernier) / total_mois_dernier) * 100)
+        else:
+            variation = None  
 
         return render(request, 'depenses/liste.html', {
             'donnee': depenses,
@@ -26,7 +67,12 @@ def liste_depenses(request, id=None):
             'edit_form': edit_form,
             'total': total,
             'id': id,
-            'active_page': 'depenses', 
+            'active_page': 'depenses',
+            'recherche': recherche,
+            'categorie_selectionnee': categorie,
+            'periode_selectionnee': periode,
+            'variation': variation,
+            'categories': Depense.CATEGORIES,
         })
 
     elif request.method == "POST":

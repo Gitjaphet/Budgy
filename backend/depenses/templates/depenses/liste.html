@@ -10,12 +10,48 @@
     <div class="stat-card">
         <span class="stat-label">Total ce mois</span>
         <span class="stat-value danger">{{ total }} Ar</span>
+        {% if variation is not None %}
+            <span class="stat-variation {% if variation > 0 %}up{% elif variation < 0 %}down{% endif %}">
+                {% if variation > 0 %}▲{% elif variation < 0 %}▼{% endif %}
+                {{ variation }}% vs mois dernier
+            </span>
+        {% else %}
+            <span class="stat-variation neutral">Pas de données pour comparer</span>
+        {% endif %}
     </div>
     <div class="stat-card">
         <span class="stat-label">Dépenses</span>
         <span class="stat-value">{{ donnee|length }}</span>
     </div>
 </div>
+
+<!-- FILTRES -->
+<form method="GET" class="filters-bar">
+    <input
+        type="text"
+        name="q"
+        placeholder="Rechercher une dépense..."
+        value="{{ recherche }}"
+        class="filter-search"
+    >
+
+    <select name="categorie" class="filter-select" onchange="this.form.submit()">
+        <option value="">Toutes les catégories</option>
+        {% for valeur, label in categories %}
+            <option value="{{ valeur }}" {% if valeur == categorie_selectionnee %}selected{% endif %}>
+                {{ label }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <select name="periode" class="filter-select" onchange="this.form.submit()">
+        <option value="ce_mois" {% if periode_selectionnee == 'ce_mois' %}selected{% endif %}>Ce mois</option>
+        <option value="mois_dernier" {% if periode_selectionnee == 'mois_dernier' %}selected{% endif %}>Mois dernier</option>
+        <option value="tout" {% if periode_selectionnee == 'tout' %}selected{% endif %}>Tout</option>
+    </select>
+
+    <button type="submit" class="btn-filter">Rechercher</button>
+</form>
 
 <!-- BOUTON AJOUTER -->
 <div class="header-actions">
