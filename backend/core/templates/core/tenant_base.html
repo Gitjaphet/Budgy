@@ -68,6 +68,53 @@
             </div>
         </aside>
 
+        <!-- MOBILE TOP BAR -->
+        <header class="mobile-topbar">
+            <div class="mobile-profile">
+                <div class="brand-logo">B</div>
+                <div class="brand-text">
+                    <span class="brand-name">Budgy</span>
+                    <span class="brand-sub">{{ request.tenant.nom }}</span>
+                </div>
+            </div>
+            <div class="mobile-topbar-actions">
+                <a href="{% url 'dashboard' %}" class="mobile-icon-btn" aria-label="Retour aux apps">
+                    <i class='ph ph-squares-four'></i>
+                </a>
+                <a href="{% url 'logout' %}" class="mobile-icon-btn" aria-label="Déconnexion">
+                    <i class='ph ph-sign-out'></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- MOBILE BOTTOM NAV -->
+        <nav class="mobile-bottomnav">
+            <a href="/" class="bottom-nav-item {% if active_page == 'resume' %}active{% endif %}">
+                <i class='ph ph-house'></i>
+                <span>Résumé</span>
+            </a>
+            <a href="/depenses/" class="bottom-nav-item {% if active_page == 'depenses' %}active{% endif %}">
+                <i class='ph ph-receipt'></i>
+                <span>Dépenses</span>
+            </a>
+            <a href="#" class="bottom-nav-item disabled">
+                <i class='ph ph-chart-bar'></i>
+                <span>Budget</span>
+            </a>
+            <a href="#" class="bottom-nav-item disabled">
+                <i class='ph ph-arrows-clockwise'></i>
+                <span>Récur.</span>
+            </a>
+            <a href="#" class="bottom-nav-item disabled">
+                <i class='ph ph-calendar-blank'></i>
+                <span>Planning</span>
+            </a>
+            <a href="#" class="bottom-nav-item disabled">
+                <i class='ph ph-users-three'></i>
+                <span>Équipe</span>
+            </a>
+        </nav>
+
         <div class="main-area">
             <main class="content">
                 {% block content %}{% endblock %}

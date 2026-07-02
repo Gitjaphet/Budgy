@@ -208,3 +208,103 @@ a {
         display: flex;
     }
 }
+
+
+/* ---- Mobile top bar & bottom nav : cachés sur desktop ---- */
+.mobile-topbar,
+.mobile-bottomnav {
+    display: none;
+}
+
+/* ---- Responsive : bascule vers app mobile-native ---- */
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+
+    .mobile-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #ffffff;
+        border-bottom: 1px solid #ececf5;
+        position: sticky;
+        top: 0;
+        z-index: 40;
+    }
+
+    .mobile-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    .mobile-topbar-actions {
+        display: flex;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .mobile-icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f4f4fb;
+        color: #6b7280;
+        font-size: 1.1rem;
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .mobile-icon-btn:hover {
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .mobile-bottomnav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-top: 1px solid #ececf5;
+        z-index: 50;
+        padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    }
+
+    .bottom-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        padding: 6px 2px;
+        font-size: 10px;
+        font-weight: 500;
+        color: #9ca3af;
+        border-radius: 10px;
+        transition: color 0.15s ease;
+    }
+
+    .bottom-nav-item i {
+        font-size: 1.3rem;
+    }
+
+    .bottom-nav-item.active {
+        color: #4f46e5;
+    }
+
+    .bottom-nav-item.disabled {
+        color: #d1d5db;
+        pointer-events: none;
+    }
+
+    .content {
+        padding: 20px 16px 90px;
+    }
+}
