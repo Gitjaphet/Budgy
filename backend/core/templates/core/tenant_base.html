@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budgy — {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <link rel="stylesheet" href="{% static 'core/css/tenant_base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -12,43 +13,71 @@
 
     <div class="app-layout">
 
-        <aside class="sidebar">
-            <div class="sidebar-brand">💰 Budgy</div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    <div class="brand-logo">B</div>
+                    <div class="brand-text">
+                        <span class="brand-name">Budgy</span>
+                        <span class="brand-sub">{{ request.tenant.nom }}</span>
+                    </div>
+                </div>
+                <button class="collapse-btn" id="collapseBtn" aria-label="Réduire le menu">
+                    <i class='bx bx-chevron-left'></i>
+                </button>
+            </div>
 
             <nav class="sidebar-nav">
                 <a href="/" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
-                    <span class="nav-icon">📋</span> Résumé
+                    <i class='bx bx-home-alt nav-icon'></i>
+                    <span class="nav-label">Résumé</span>
                 </a>
                 <a href="/depenses/" class="nav-item {% if active_page == 'depenses' %}active{% endif %}">
-                    <span class="nav-icon">📄</span> Dépenses
+                    <i class='bx bx-receipt nav-icon'></i>
+                    <span class="nav-label">Dépenses</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <span class="nav-icon">📊</span> Budget
+                    <i class='bx bx-bar-chart-alt-2 nav-icon'></i>
+                    <span class="nav-label">Budget</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <span class="nav-icon">🔄</span> Récurrentes
+                    <i class='bx bx-refresh nav-icon'></i>
+                    <span class="nav-label">Récurrentes</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <span class="nav-icon">📅</span> Planning
+                    <i class='bx bx-calendar nav-icon'></i>
+                    <span class="nav-label">Planning</span>
                 </a>
                 <a href="#" class="nav-item disabled">
-                    <span class="nav-icon">👥</span> Équipe
+                    <i class='bx bx-group nav-icon'></i>
+                    <span class="nav-label">Équipe</span>
                 </a>
             </nav>
+
+            <div class="sidebar-footer">
+                <a href="{% url 'logout' %}" class="nav-item">
+                    <i class='bx bx-log-out nav-icon'></i>
+                    <span class="nav-label">Déconnexion</span>
+                </a>
+            </div>
         </aside>
 
         <div class="main-area">
-            <header class="topbar">
-                <span class="topbar-org">{{ request.tenant.nom }}</span>
-                <a href="{% url 'logout' %}" class="topbar-logout">Déconnexion</a>
-            </header>
-
             <main class="content">
                 {% block content %}{% endblock %}
             </main>
         </div>
 
     </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const collapseBtn = document.getElementById('collapseBtn');
+
+        collapseBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+    </script>
 
     {% block extra_js %}{% endblock %}
 </body>
