@@ -376,3 +376,150 @@ body {
     font-size: 40px;
     margin-bottom: 0.75rem;
 }
+
+
+
+/* ==================== */
+/* FILTRES */
+/* ==================== */
+.filters-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-search {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    outline: none;
+    font-family: inherit;
+    color: #1a1a1a;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.filter-search::placeholder {
+    color: #999;
+}
+
+.filter-search:focus {
+    border-color: #007aff;
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+}
+
+.filter-select {
+    padding: 10px 16px;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    color: #1a1a1a;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+    border-color: #007aff;
+}
+
+.btn-filter {
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.2s ease;
+}
+
+.btn-filter:hover {
+    opacity: 0.85;
+}
+
+/* ==================== */
+/* VARIATION STATS */
+/* ==================== */
+.stat-variation {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.stat-variation.up {
+    color: #cc1a10;
+}
+
+.stat-variation.down {
+    color: #1a7a35;
+}
+
+.stat-variation.neutral {
+    color: #999;
+    font-weight: 500;
+}
+
+/* ==================== */
+/* HEADER DE COLONNES */
+/* ==================== */
+.table-header {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr auto;
+    gap: 12px;
+    padding: 10px 20px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ==================== */
+/* LIGNE DE DEPENSE AVEC ICONE */
+/* ==================== */
+.table-row {
+    grid-template-columns: 2.5fr 1fr 1fr 1fr auto;
+}
+
+.depense-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.categorie-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+}
+
+.categorie-icon.alimentation { background: linear-gradient(135deg, #34c759, #30d158); }
+.categorie-icon.transport    { background: linear-gradient(135deg, #007aff, #0a84ff); }
+.categorie-icon.logement     { background: linear-gradient(135deg, #af52de, #bf5af2); }
+.categorie-icon.loisirs      { background: linear-gradient(135deg, #ff9500, #ff9f0a); }
+.categorie-icon.sante        { background: linear-gradient(135deg, #ff3b30, #ff453a); }
+.categorie-icon.autre        { background: linear-gradient(135deg, #8e8e93, #98989d); }
+
+.depense-titre {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1a1a1a;
+}

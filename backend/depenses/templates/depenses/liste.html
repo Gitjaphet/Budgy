@@ -61,15 +61,33 @@
 
 <!-- TABLEAU -->
 <div class="table-wrap">
+    <div class="table-header">
+        <span>Dépense</span>
+        <span>Montant</span>
+        <span>Catégorie</span>
+        <span>Date</span>
+        <span></span>
+    </div>
     {% for depense in donnee %}
     <div class="table-row">
-        <span>{{ depense.titre }}</span>
+        <div class="depense-info">
+            <div class="categorie-icon {{ depense.categorie }}">
+                {% if depense.categorie == 'alimentation' %}<i class='ph ph-shopping-cart'></i>
+                {% elif depense.categorie == 'transport' %}<i class='ph ph-car'></i>
+                {% elif depense.categorie == 'logement' %}<i class='ph ph-house'></i>
+                {% elif depense.categorie == 'sante' %}<i class='ph ph-heartbeat'></i>
+                {% elif depense.categorie == 'loisirs' %}<i class='ph ph-game-controller'></i>
+                {% else %}<i class='ph ph-dots-three-circle'></i>
+                {% endif %}
+            </div>
+            <span class="depense-titre">{{ depense.titre }}</span>
+        </div>
         <span>{{ depense.montant }} Ar</span>
         <span class="badge {{ depense.categorie }}">{{ depense.get_categorie_display }}</span>
         <span class="date">{{ depense.date }}</span>
         <div class="actions">
-            <button class="btn-icon" onclick="openModal('modal-edit'); loadEditForm({{ depense.id }})">✏️</button>
-            <button class="btn-icon danger" onclick="openDeleteModal({{ depense.id }}, '{{ depense.titre }}')">🗑️</button>
+            <button class="btn-icon" onclick="openModal('modal-edit'); loadEditForm({{ depense.id }})"><i class='ph ph-pencil-simple'></i></button>
+            <button class="btn-icon danger" onclick="openDeleteModal({{ depense.id }}, '{{ depense.titre }}')"><i class='ph ph-trash'></i></button>
         </div>
     </div>
     {% empty %}
