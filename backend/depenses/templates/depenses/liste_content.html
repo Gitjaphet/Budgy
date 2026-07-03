@@ -1,0 +1,162 @@
+<!-- djlint:off -->
+{% load static %}
+
+<!-- STATS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-label">Total ce mois</span>
+        <span class="stat-value danger">{{ total }} Ar</span>
+        {% if variation is not None %}
+            <span class="stat-variation {% if variation > 0 %}up{% elif variation < 0 %}down{% endif %}">
+                {% if variation > 0 %}▲{% elif variation < 0 %}▼{% endif %}
+                {{ variation }}% vs mois dernier
+            </span>
+        {% else %}
+            <span class="stat-variation neutral">Pas de données pour comparer</span>
+        {% endif %}
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Dépenses</span>
+        <span class="stat-value">{{ donnee|length }}</span>
+    </div>
+</div>
+
+<!-- FILTRES -->
+<form method="GET" class="filters-bar">
+    <input
+        type="text"
+        name="q"
+        placeholder="Rechercher une dépense..."
+        value="{{ recherche }}"
+        class="filter-search"
+    >
+
+    <div class="cs" data-name="categorie">
+        <input type="hidden" name="categorie" value="{{ categorie_selectionnee }}">
+        <button type="button" class="cs-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="cs-label">Toutes les catégories</span>
+            <i class="ph ph-caret-down cs-caret"></i>
+        </button>
+        <ul class="cs-menu" role="listbox">
+            <li class="cs-option {% if not categorie_selectionnee %}is-selected{% endif %}" data-value="" role="option">Toutes les catégories</li>
+            {% for valeur, label in categories %}
+            <li class="cs-option {% if valeur == categorie_selectionnee %}is-selected{% endif %}" data-value="{{ valeur }}" role="option">{{ label }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="cs" data-name="periode">
+        <input type="hidden" name="periode" value="{{ periode_selectionnee|default:'ce_mois' }}">
+        <button type="button" class="cs-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="cs-label">Ce mois</span>
+            <i class="ph ph-caret-down cs-caret"></i>
+        </button>
+        <ul class="cs-menu" role="listbox">
+            <li class="cs-option {% if periode_selectionnee == 'ce_mois' or not periode_selectionnee %}is-selected{% endif %}" data-value="ce_mois" role="option">Ce mois</li>
+            <li class="cs-option {% if periode_selectionnee == 'mois_dernier' %}is-selected{% endif %}" data-value="mois_dernier" role="option">Mois dernier</li>
+            <li class="cs-option {% if periode_selectionnee == 'tout' %}is-selected{% endif %}" data-value="tout" role="option">Tout</li>
+        </ul>
+    </div>
+
+    <button type="submit" class="btn-filter">Rechercher</button>
+</form>
+
+<!-- BOUTON AJOUTER -->
+<div class="header-actions">
+    <h2>Liste des dépenses</h2>
+    <button class="btn-add" onclick="openModal('modal-add')">+ Ajouter</button>
+</div>
+
+<!-- TABLEAU -->
+<div class="table-wrap">
+    <div class="table-header">
+        <span>Dépense</span>
+        <span>Montant</span>
+        <span>Catégorie</span>
+        <span>Date</span>
+        <span></span>
+    </div>
+    {% for depense in donnee %}
+    <div class="table-row">
+        <div class="depense-info">
+            <div class="categorie-icon {{ depense.categorie }}">
+                {% if depense.categorie == 'alimentation' %}<i class='ph ph-shopping-cart'></i>
+                {% elif depense.categorie == 'transport' %}<i class='ph ph-car'></i>
+                {% elif depense.categorie == 'logement' %}<i class='ph ph-house'></i>
+                {% elif depense.categorie == 'sante' %}<i class='ph ph-heartbeat'></i>
+                {% elif depense.categorie == 'loisirs' %}<i class='ph ph-game-controller'></i>
+                {% else %}<i class='ph ph-dots-three-circle'></i>
+                {% endif %}
+            </div>
+            <span class="depense-titre">{{ depense.titre }}</span>
+        </div>
+        <span>{{ depense.montant }} Ar</span>
+        <span class="badge {{ depense.categorie }}">{{ depense.get_categorie_display }}</span>
+        <span class="date">{{ depense.date }}</span>
+        <div class="actions">
+            <button class="btn-icon" onclick="openModal('modal-edit'); loadEditForm({{ depense.id }})"><i class='ph ph-pencil-simple'></i></button>
+            <button class="btn-icon danger" onclick="openDeleteModal({{ depense.id }}, '{{ depense.titre }}')"><i class='ph ph-trash'></i></button>
+        </div>
+    </div>
+    {% empty %}
+    <p class="empty">Aucune dépense pour le moment.</p>
+    {% endfor %}
+</div>
+
+<!-- POPUP AJOUTER -->
+<div class="modal-overlay" id="modal-add">
+    <div class="modal">
+        <h3>Ajouter une dépense</h3>
+        <form method="POST" action="/depenses/">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-add')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- POPUP MODIFIER -->
+<div class="modal-overlay" id="modal-edit">
+    <div class="modal">
+        <h3>Modifier une dépense</h3>
+        <form method="POST" id="form-edit">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="edit" value="1">
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-edit')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-save">Sauvegarder</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- POPUP SUPPRIMER -->
+<div class="modal-overlay" id="modal-delete">
+    <div class="modal modal-delete">
+        <p>Supprimer <strong id="delete-titre"></strong> ? Cette action est irréversible.</p>
+        <form method="POST" id="form-delete">
+            {% csrf_token %}
+            <input type="hidden" name="delete" value="1">
+            <div class="modal-actions">
+                <button type="button" onclick="closeModal('modal-delete')" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-delete">Supprimer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if id %}
+<script>
+    document.addEventListener('htmx:afterSettle', function ouvrirModaleEdit() {
+        openModal('modal-edit');
+        document.removeEventListener('htmx:afterSettle', ouvrirModaleEdit);
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        openModal('modal-edit');
+    });
+</script>
+{% endif %}

@@ -59,9 +59,9 @@ def liste_depenses(request, id=None):
         if total_mois_dernier > 0:
             variation = round(((total - total_mois_dernier) / total_mois_dernier) * 100)
         else:
-            variation = None  
+            variation = None
 
-        return render(request, 'depenses/liste.html', {
+        contexte = {
             'donnee': depenses,
             'form': form,
             'edit_form': edit_form,
@@ -73,7 +73,12 @@ def liste_depenses(request, id=None):
             'periode_selectionnee': periode,
             'variation': variation,
             'categories': Depense.CATEGORIES,
-        })
+        }
+
+        # Requête HTMX (navigation interne) → on ne renvoie que le fragment,
+        # pas toute la page avec la sidebar
+        template = 'depenses/liste_content.html' if request.headers.get('HX-Request') else 'depenses/liste.html'
+        return render(request, template, contexte)
 
     elif request.method == "POST":
         if 'delete' in request.POST:

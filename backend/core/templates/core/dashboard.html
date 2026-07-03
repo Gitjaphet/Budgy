@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budgy — Dashboard</title>
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
     <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
 </head>
 <body>
     <nav class="navbar">
-        <span class="navbar-brand">💰 Budgy</span>
+        <span class="navbar-brand"><i class="ph ph-wallet"></i> Budgy</span>
         <div style="display:flex; align-items:center; gap:16px;">
             <span class="navbar-org">{{ request.tenant.nom }}</span>
             <a href="{% url 'logout' %}" style="color:#888; text-decoration:none; font-size:0.85rem;">Déconnexion</a>
@@ -17,33 +18,38 @@
     </nav>
 
     <main class="container">
-        <h1 class="welcome">Bonjour 👋</h1>
+        <h1 class="welcome">Bonjour <i class="ph ph-hand-waving"></i></h1>
         <p class="subtitle">Choisissez un module pour commencer</p>
 
         <div class="modules-grid">
 
-            <a href="/depenses/" class="module-card">
-                <div class="module-icon">💸</div>
+            <a href="/depenses/" class="module-card"
+               hx-get="/depenses/"
+               hx-select="body"
+               hx-target="body"
+               hx-swap="outerHTML"
+               hx-push-url="true">
+                <div class="module-icon"><i class="ph ph-receipt"></i></div>
                 <div class="module-name">Dépenses</div>
                 <div class="module-desc">Suivez et gérez vos dépenses</div>
             </a>
 
             <div class="module-card disabled">
-                <div class="module-icon">📊</div>
+                <div class="module-icon"><i class="ph ph-chart-bar"></i></div>
                 <div class="module-name">Budget</div>
                 <div class="module-desc">Bientôt disponible</div>
                 <span class="badge">Prochainement</span>
             </div>
 
             <div class="module-card disabled">
-                <div class="module-icon">📅</div>
+                <div class="module-icon"><i class="ph ph-calendar-blank"></i></div>
                 <div class="module-name">Planning</div>
                 <div class="module-desc">Bientôt disponible</div>
                 <span class="badge">Prochainement</span>
             </div>
 
             <div class="module-card disabled">
-                <div class="module-icon">📅</div>
+                <div class="module-icon"><i class="ph ph-gear-six"></i></div>
                 <div class="module-name">Paramètre</div>
                 <div class="module-desc">Bientôt disponible</div>
                 <span class="badge">Prochainement</span>
