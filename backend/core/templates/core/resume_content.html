@@ -1,0 +1,106 @@
+{% load humanize %}
+
+<div class="resume-header">
+    <div>
+        <h1 class="resume-title">Résumé</h1>
+        <p class="resume-subtitle">Vue d'ensemble de vos finances — {{ "now"|date:"F Y" }}</p>
+    </div>
+</div>
+
+<!-- KPI cards -->
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--indigo"><i class="ph ph-wallet"></i></div>
+        <div class="kpi-body">
+            <span class="kpi-label">Total ce mois</span>
+            <span class="kpi-value">{{ total_mois|floatformat:0 }} Ar</span>
+        </div>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon {% if variation is not None and variation > 0 %}kpi-icon--red{% else %}kpi-icon--green{% endif %}">
+            <i class="ph {% if variation is not None and variation > 0 %}ph-trend-up{% else %}ph-trend-down{% endif %}"></i>
+        </div>
+        <div class="kpi-body">
+            <span class="kpi-label">Vs mois dernier</span>
+            <span class="kpi-value">
+                {% if variation is not None %}
+                    {% if variation > 0 %}+{% endif %}{{ variation }}%
+                {% else %}
+                    —
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--purple"><i class="ph ph-tag"></i></div>
+        <div class="kpi-body">
+            <span class="kpi-label">Catégorie principale</span>
+            <span class="kpi-value kpi-value--text">{{ categorie_principale }}</span>
+        </div>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon kpi-icon--blue"><i class="ph ph-receipt"></i></div>
+        <div class="kpi-body">
+            <span class="kpi-label">Dépenses ce mois</span>
+            <span class="kpi-value">{{ nb_depenses_mois }}</span>
+        </div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3 class="chart-title">Répartition par catégorie</h3>
+        {% if chart_cat_labels %}
+            <canvas id="chart-categories"></canvas>
+        {% else %}
+            <p class="chart-empty">Aucune dépense ce mois-ci.</p>
+        {% endif %}
+    </div>
+
+    <div class="chart-card">
+        <h3 class="chart-title">Évolution sur 6 mois</h3>
+        <canvas id="chart-evolution"></canvas>
+    </div>
+</div>
+
+<!-- Dernières dépenses -->
+<div class="recent-card">
+    <div class="recent-header">
+        <h3 class="chart-title">Dernières dépenses</h3>
+        <a href="{% url 'liste_depenses' %}" class="recent-link" hx-boost="true">Voir tout <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    {% if dernieres_depenses %}
+        <ul class="recent-list">
+            {% for depense in dernieres_depenses %}
+            <li class="recent-item">
+                <div class="recent-item-icon"><i class="ph ph-receipt"></i></div>
+                <div class="recent-item-body">
+                    <span class="recent-item-title">{{ depense.titre }}</span>
+                    <span class="recent-item-meta">{{ depense.get_categorie_display }} · {{ depense.date|date:"d M" }}</span>
+                </div>
+                <span class="recent-item-amount">{{ depense.montant }} Ar</span>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="chart-empty">Aucune dépense enregistrée.</p>
+    {% endif %}
+</div>
+
+{{ chart_cat_labels|json_script:"chart-cat-labels" }}
+{{ chart_cat_data|json_script:"chart-cat-data" }}
+{{ chart_evo_labels|json_script:"chart-evo-labels" }}
+{{ chart_evo_data|json_script:"chart-evo-data" }}
+
+<script>
+    if (typeof window.initResumeCharts === 'function') {
+        window.initResumeCharts();
+    } else {
+        document.addEventListener('resume-js-ready', () => window.initResumeCharts());
+    }
+</script>

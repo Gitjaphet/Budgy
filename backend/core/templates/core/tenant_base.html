@@ -31,7 +31,7 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a href="/" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
+                <a href="{% url 'resume' %}" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
                     <i class='ph ph-house nav-icon'></i>
                     <span class="nav-label">Résumé</span>
                 </a>
@@ -90,7 +90,7 @@
 
         <!-- MOBILE BOTTOM NAV -->
         <nav class="mobile-bottomnav">
-            <a href="/" class="bottom-nav-item {% if active_page == 'resume' %}active{% endif %}">
+            <a href="{% url 'resume' %}" class="bottom-nav-item {% if active_page == 'resume' %}active{% endif %}">
                 <i class='ph ph-house'></i>
                 <span>Résumé</span>
             </a>
