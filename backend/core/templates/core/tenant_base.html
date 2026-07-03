@@ -127,6 +127,8 @@
     <script>
         const sidebar = document.getElementById('sidebar');
         const collapseBtn = document.getElementById('collapseBtn');
+        const loadingIndicator = document.getElementById('htmx-loading-indicator');
+        let loadingTimeout;
 
         collapseBtn.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
@@ -142,10 +144,27 @@
             });
         }
 
+        document.addEventListener('htmx:beforeRequest', function() {
+            // petit délai pour éviter un flash sur les requêtes très rapides
+            loadingTimeout = setTimeout(function() {
+                loadingIndicator.classList.add('is-visible');
+            }, 150);
+        });
+
+        document.addEventListener('htmx:afterRequest', function() {
+            clearTimeout(loadingTimeout);
+            loadingIndicator.classList.remove('is-visible');
+        });
+
         document.addEventListener('htmx:afterSettle', updateActiveNav);
         document.addEventListener('DOMContentLoaded', updateActiveNav);
     </script>
 
     {% block extra_js %}{% endblock %}
+
+    <div id="htmx-loading-indicator" class="loading-indicator">
+        <div class="loading-spinner"></div>
+        <span>Chargement...</span>
+    </div>
 </body>
 </html>
