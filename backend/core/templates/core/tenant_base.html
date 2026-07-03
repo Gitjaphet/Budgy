@@ -58,11 +58,11 @@
             </nav>
 
             <div class="sidebar-footer">
-                <a href="{% url 'dashboard' %}" class="nav-item">
+                <a href="{% url 'dashboard' %}" class="nav-item" hx-boost="false">
                     <i class='ph ph-squares-four nav-icon'></i>
                     <span class="nav-label">Retour aux apps</span>
                 </a>
-                <a href="{% url 'logout' %}" class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-item" hx-boost="false">
                     <i class='ph ph-sign-out nav-icon'></i>
                     <span class="nav-label">Déconnexion</span>
                 </a>
