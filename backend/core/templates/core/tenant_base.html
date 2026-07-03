@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
     <title>Budgy — {% block title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'core/css/tenant_base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body hx-boost="true" hx-target="#main-content" hx-select="#main-content" hx-swap="innerHTML">
 
     <div class="app-layout">
 
@@ -31,11 +32,11 @@
 
             <nav class="sidebar-nav">
                 <a href="/" class="nav-item {% if active_page == 'resume' %}active{% endif %}">
-                    <i class='ph ph-house nav-icon'></i> 
+                    <i class='ph ph-house nav-icon'></i>
                     <span class="nav-label">Résumé</span>
                 </a>
                 <a href="/depenses/" class="nav-item {% if active_page == 'depenses' %}active{% endif %}">
-                    <i class='ph ph-receipt nav-icon'></i> 
+                    <i class='ph ph-receipt nav-icon'></i>
                     <span class="nav-label">Dépenses</span>
                 </a>
                 <a href="#" class="nav-item disabled">
@@ -116,7 +117,7 @@
         </nav>
 
         <div class="main-area">
-            <main class="content">
+            <main class="content" id="main-content">
                 {% block content %}{% endblock %}
             </main>
         </div>
@@ -130,6 +131,19 @@
         collapseBtn.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
         });
+
+        function updateActiveNav() {
+            const path = window.location.pathname;
+            document.querySelectorAll('.nav-item, .bottom-nav-item').forEach(function(link) {
+                const href = link.getAttribute('href');
+                if (!href || href === '#') return;
+                const isActive = href === path || (href !== '/' && path.startsWith(href));
+                link.classList.toggle('active', isActive);
+            });
+        }
+
+        document.addEventListener('htmx:afterSettle', updateActiveNav);
+        document.addEventListener('DOMContentLoaded', updateActiveNav);
     </script>
 
     {% block extra_js %}{% endblock %}
