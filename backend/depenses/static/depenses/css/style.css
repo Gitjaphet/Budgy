@@ -1,5 +1,5 @@
 /* ============================================================
-   DESIGN TOKENS — la base de tout système de design cohérent
+   DESIGN TOKENS — la base de tout système de design cohérent (style.css)
    ============================================================ */
 :root {
     /* Couleurs de marque */
@@ -528,9 +528,133 @@ body {
 .modal-delete { text-align: center; max-width: 340px; }
 .modal-delete .icon-warning { font-size: 40px; margin-bottom: var(--space-3); }
 
+
+/* ============================================================
+   CUSTOM SELECT (remplace les <select> natifs)
+   ============================================================ */
+.cs {
+    position: relative;
+}
+
+.cs-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    min-width: 168px;
+    padding: 10px var(--space-4);
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    font-family: inherit;
+    background: var(--surface-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.cs-trigger:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.cs.is-open .cs-trigger {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+    background: #fff;
+}
+
+.cs-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cs-caret {
+    flex-shrink: 0;
+    font-size: 14px;
+    color: var(--color-text-faint);
+    transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.cs.is-open .cs-caret {
+    transform: rotate(180deg);
+    color: var(--color-primary);
+}
+
+.cs-menu {
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 100%;
+    width: max-content;
+    max-width: 260px;
+    background: var(--surface-glass-strong);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 0.5px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-2);
+    z-index: 60;
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.cs.is-open .cs-menu {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.cs-option {
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.12s var(--ease), color 0.12s var(--ease);
+}
+
+.cs-option:hover {
+    background: rgba(0, 122, 255, 0.08);
+}
+
+.cs-option.is-selected {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: #fff;
+    font-weight: 600;
+}
+
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+
+/* ---- Mobile : le menu prend toute la largeur dispo, ancré au bouton ---- */
+@media (max-width: 720px) {
+    .cs-trigger {
+        min-width: 0;
+        flex: 1;
+    }
+    .cs-menu {
+        left: 0;
+        right: 0;
+        width: auto;
+        max-width: none;
+    }
+}
+
 @media (max-width: 720px) {
     .stats-grid { grid-template-columns: 1fr; }
 
