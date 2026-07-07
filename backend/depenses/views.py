@@ -77,7 +77,8 @@ def liste_depenses(request, id=None):
 
         # Requête HTMX (navigation interne) → on ne renvoie que le fragment,
         # pas toute la page avec la sidebar
-        template = 'depenses/liste_content.html' if request.headers.get('HX-Request') else 'depenses/liste.html'
+        est_fragment = request.headers.get('HX-Request') and not request.headers.get('HX-Boosted')
+        template = 'depenses/liste_content.html' if est_fragment else 'depenses/liste.html'
         return render(request, template, contexte)
 
     elif request.method == "POST":
