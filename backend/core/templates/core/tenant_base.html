@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx-ext-head-support@2.0.3/head-support.js"></script>
     <title>Budgy — {% block title %}{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'core/css/tenant_base.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
-<body hx-boost="true" hx-target="#main-content" hx-select="#main-content" hx-swap="innerHTML">
+<body hx-ext="head-support" hx-boost="true" hx-target="#main-content" hx-select="#main-content" hx-swap="innerHTML">
 
     <div class="app-layout">
 
