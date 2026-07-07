@@ -129,5 +129,7 @@ def resume(request):
         'chart_evo_data': chart_evo_data,
     }
 
-    template = 'core/resume_content.html' if request.headers.get('HX-Request') else 'core/resume.html'
+  
+    est_fragment = request.headers.get('HX-Request') and not request.headers.get('HX-Boosted')
+    template = 'core/resume_content.html' if est_fragment else 'core/resume.html'
     return render(request, template, contexte)
