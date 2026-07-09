@@ -18,14 +18,14 @@ Le projet met l'accent sur une **expérience utilisateur fluide et rapide** grâ
 
 ## ✨ Fonctionnalités
 
-- 🏢 **Multi-tenant réel** — isolation des données par schéma PostgreSQL (`django-tenants`), routage automatique par sous-domaine via Traefik v3
-- 📊 **Dashboard Résumé** — KPIs du mois (total, variation vs mois dernier, catégorie principale), graphiques interactifs (répartition par catégorie, évolution sur 6 mois) avec Chart.js
-- 🧾 **Gestion des dépenses** — création/modification/suppression en modals, recherche en temps réel, filtres par catégorie et période
-- ⚡ **Navigation HTMX** — `hx-boost` avec swap ciblé du contenu principal + extension `head-support` pour un chargement de page quasi instantané, sans rechargement complet
-- 📱 **Responsive mobile-first** — sidebar rétractable sur desktop, barre de navigation basse dédiée sur mobile
-- 🎨 **Design system glassmorphism** maison — typographie Josefin Sans, iconographie Phosphor Icons, variables CSS centralisées
-- 🔐 **Authentification par tenant** — inscription et connexion isolées par organisation
-- 🚀 **CI/CD automatisé** — GitHub Actions, migrations automatiques au déploiement, conteneurisation complète
+- **Multi-tenant réel** — isolation des données par schéma PostgreSQL (`django-tenants`), routage automatique par sous-domaine via Traefik v3
+- **Dashboard Résumé** — KPIs du mois (total, variation vs mois dernier, catégorie principale), graphiques interactifs (répartition par catégorie, évolution sur 6 mois) avec Chart.js
+- **Gestion des dépenses** — création/modification/suppression en modals, recherche en temps réel, filtres par catégorie et période
+- **Navigation HTMX** — `hx-boost` avec swap ciblé du contenu principal + extension `head-support` pour un chargement de page quasi instantané, sans rechargement complet
+- **Responsive mobile-first** — sidebar rétractable sur desktop, barre de navigation basse dédiée sur mobile
+- **Design system glassmorphism** maison — typographie Josefin Sans, iconographie Phosphor Icons, variables CSS centralisées
+- **Authentification par tenant** — inscription et connexion isolées par organisation
+- **CI/CD automatisé** — GitHub Actions, migrations automatiques au déploiement, conteneurisation complète
 
 
 ## 🏗️ Architecture technique
