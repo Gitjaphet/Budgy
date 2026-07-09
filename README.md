@@ -73,8 +73,8 @@ backend/
 
 ## 👤 Auteur
 
-**Japhet (ART)** — Développeur Full-Stack, Madagascar
-Spécialisé Next.js · Django · FastAPI · DevOps
+**DEV-JAPHET** — Développeur Full-Stack, Madagascar
+Spécialisé Next.js · Django · FastAPI · DevOps . Odoo
 
 - 🌐 [Portfolio](https://japhet-dev-portfolio.vercel.app/)
 - 💼 [LinkedIn](https://linkedin.com/in/japhet-bezanaka-dev)
