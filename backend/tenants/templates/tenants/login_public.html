@@ -15,10 +15,18 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             padding: 20px;
+            padding-right: 8vw;
             position: relative;
             overflow-x: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                justify-content: center;
+                padding-right: 20px;
+            }
         }
 
         .bg-video-wrap {
