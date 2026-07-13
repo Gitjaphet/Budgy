@@ -23,8 +23,9 @@ INSTALLED_APPS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://budgy.artjatie.com',
     'https://*.budgy.artjatie.com',
+    'https://budgy.medevstack.com',
+    'https://*.budgy.medevstack.com',
 ]
-
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'dashboard'
