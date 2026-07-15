@@ -2,9 +2,18 @@
 
 # 💰 Budgy
 
-**SaaS multi-tenant de gestion de dépenses**, pensé pour les particuliers et les petites équipes qui veulent suivre leur budget sans friction.
-
-[🌐 Démo en ligne](https://budgy.artjatie.com) · [Signaler un bug](https://github.com/Gitjaphet/Budgy/issues)
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5A65B"/>
+      <stop offset="100%" stop-color="#E85D8A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="300" fill="url(#bg)"/>
+  <path d="M0,255 C280,215 520,285 800,245 C960,222 1080,255 1200,235 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.14)"/>
+  <text x="60" y="145" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="58" font-weight="700" fill="#ffffff">Budgy</text>
+  <text x="60" y="188" font-family="Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.9)">SaaS multi-tenant de gestion des dépenses</text>
+</svg>
 
 </div>
 
@@ -76,7 +85,7 @@ backend/
 **DEV-JAPHET** — Développeur Full-Stack, Madagascar
 Spécialisé Next.js · Django · FastAPI · DevOps . Odoo
 
-- 🌐 [Portfolio](https://japhet-dev-portfolio.vercel.app/)
+- 🌐 [Portfolio](https://japhet.medevstack.com)
 - 💼 [LinkedIn](https://linkedin.com/in/japhet-bezanaka-dev)
 - 🐙 [GitHub](https://github.com/Gitjaphet)
 
