@@ -1,7 +1,3 @@
-<div align="center">
-
-# 💰 Budgy
-
 <svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -14,8 +10,6 @@
   <text x="60" y="145" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="58" font-weight="700" fill="#ffffff">Budgy</text>
   <text x="60" y="188" font-family="Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.9)">SaaS multi-tenant de gestion des dépenses</text>
 </svg>
-
-</div>
 
 ---
 
