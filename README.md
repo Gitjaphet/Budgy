@@ -91,6 +91,10 @@ Spécialisé Next.js · Django · FastAPI · DevOps · Odoo
 - 💼 [LinkedIn](https://linkedin.com/in/japhet-bezanaka-dev)
 - 🐙 [GitHub](https://github.com/Gitjaphet)
 
+## Live
+
+> [budgy.medevstack.com](https://budgy.medevstack.com)
+
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:F5A65B,100:E85D8A&height=100&section=footer" width="100%"/>
 </p>
