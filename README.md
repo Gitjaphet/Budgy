@@ -1,15 +1,12 @@
-<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F5A65B"/>
-      <stop offset="100%" stop-color="#E85D8A"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="300" fill="url(#bg)"/>
-  <path d="M0,255 C280,215 520,285 800,245 C960,222 1080,255 1200,235 L1200,300 L0,300 Z" fill="rgba(255,255,255,0.14)"/>
-  <text x="60" y="145" font-family="Georgia, 'Times New Roman', serif" font-style="italic" font-size="58" font-weight="700" fill="#ffffff">Budgy</text>
-  <text x="60" y="188" font-family="Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.9)">SaaS multi-tenant de gestion des dépenses</text>
-</svg>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:F5A65B,100:E85D8A&height=160&section=header&text=Budgy&fontSize=40&fontColor=fff&animation=twinkling&fontAlignY=35&desc=SaaS%20multi-tenant%20de%20gestion%20des%20dépenses&descAlignY=58&descSize=16" width="100%"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Status-Production-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Multi--tenant-django--tenants-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Madagascar-🇲🇬-red?style=for-the-badge" />
+</p>
 
 ---
 
@@ -19,24 +16,37 @@
 
 Le projet met l'accent sur une **expérience utilisateur fluide et rapide** grâce à HTMX (navigation sans rechargement complet, formulaires et filtres en AJAX léger), sans la complexité d'un frontend JavaScript séparé (React/Vue).
 
+---
+
 ## ✨ Fonctionnalités
 
-- **Multi-tenant réel** — isolation des données par schéma PostgreSQL (`django-tenants`), routage automatique par sous-domaine via Traefik v3
-- **Dashboard Résumé** — KPIs du mois (total, variation vs mois dernier, catégorie principale), graphiques interactifs (répartition par catégorie, évolution sur 6 mois) avec Chart.js
-- **Gestion des dépenses** — création/modification/suppression en modals, recherche en temps réel, filtres par catégorie et période
-- **Navigation HTMX** — `hx-boost` avec swap ciblé du contenu principal + extension `head-support` pour un chargement de page quasi instantané, sans rechargement complet
-- **Responsive mobile-first** — sidebar rétractable sur desktop, barre de navigation basse dédiée sur mobile
-- **Design system glassmorphism** maison — typographie Josefin Sans, iconographie Phosphor Icons, variables CSS centralisées
-- **Authentification par tenant** — inscription et connexion isolées par organisation
-- **CI/CD automatisé** — GitHub Actions, migrations automatiques au déploiement, conteneurisation complète
+- 🏢 **Multi-tenant réel** — isolation des données par schéma PostgreSQL (`django-tenants`), routage automatique par sous-domaine via Traefik v3
+- 📊 **Dashboard Résumé** — KPIs du mois (total, variation vs mois dernier, catégorie principale), graphiques interactifs (répartition par catégorie, évolution sur 6 mois) avec Chart.js
+- 💰 **Gestion des dépenses** — création/modification/suppression en modals, recherche en temps réel, filtres par catégorie et période
+- ⚡ **Navigation HTMX** — `hx-boost` avec swap ciblé du contenu principal + extension `head-support` pour un chargement de page quasi instantané, sans rechargement complet
+- 📱 **Responsive mobile-first** — sidebar rétractable sur desktop, barre de navigation basse dédiée sur mobile
+- 🎨 **Design system glassmorphism** maison — typographie Josefin Sans, iconographie Phosphor Icons, variables CSS centralisées
+- 🔐 **Authentification par tenant** — inscription et connexion isolées par organisation
+- 🚀 **CI/CD automatisé** — GitHub Actions, migrations automatiques au déploiement, conteneurisation complète
 
+---
 
-## 🏗️ Architecture technique
+## 🏗️ Stack technique
+
+| Couche | Technologie |
+|---|---|
+| Backend | Django · django-tenants · Gunicorn |
+| Frontend | HTMX · Chart.js · CSS custom (glassmorphism) |
+| Base de données | PostgreSQL (isolation par schéma) |
+| Infrastructure | Docker Compose · Traefik v3 · Whitenoise |
+| CI/CD | GitHub Actions (build, migrations, déploiement) |
+
+### Architecture
 
 ```
 ┌─────────────┐       ┌──────────────┐       ┌─────────────────┐
 │   Traefik   │──────▶│  Django app  │──────▶│  PostgreSQL      │
-│  (routage   │       │  (Gunicorn + │       │  multi-schema    │
+│  (routage   │       │  (Gunicorn +  │       │  multi-schema    │
 │  sous-domaine)│      │  Whitenoise) │       │  (django-tenants)│
 └─────────────┘       └──────────────┘       └─────────────────┘
                               │
@@ -47,13 +57,7 @@ Le projet met l'accent sur une **expérience utilisateur fluide et rapide** grâ
                      └──────────────────┘
 ```
 
-| Couche | Technologies |
-|---|---|
-| **Backend** | Django, django-tenants, Gunicorn |
-| **Frontend** | HTMX, Chart.js, CSS custom (glassmorphism) |
-| **Base de données** | PostgreSQL (isolation par schéma) |
-| **Infrastructure** | Docker Compose, Traefik v3, Whitenoise |
-| **CI/CD** | GitHub Actions (build, migrations, déploiement) |
+---
 
 ## 📂 Structure du projet
 
@@ -66,6 +70,8 @@ backend/
 └── docker-compose.yml
 ```
 
+---
+
 ## 🗺️ Roadmap
 
 - [ ] Module **Budget** — définition d'objectifs de dépenses par catégorie
@@ -73,6 +79,8 @@ backend/
 - [ ] Module **Planning** — vue calendrier des dépenses à venir
 - [ ] Module **Équipe** — gestion collaborative multi-utilisateurs par tenant
 - [ ] Export PDF/Excel des rapports mensuels
+
+---
 
 ## 👤 Auteur
 
@@ -83,8 +91,6 @@ Spécialisé Next.js · Django · FastAPI · DevOps · Odoo
 - 💼 [LinkedIn](https://linkedin.com/in/japhet-bezanaka-dev)
 - 🐙 [GitHub](https://github.com/Gitjaphet)
 
----
-
-<div align="center">
-<sub>Construit avec ☕ et Django à Madagascar 🇲🇬</sub>
-</div>
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:F5A65B,100:E85D8A&height=100&section=footer" width="100%"/>
+</p>
